@@ -31,24 +31,27 @@ echo "3. Setting permissions..."
 chmod +x collector.py simple_web_server.py find_veeder_tls.py
 chmod +x lantronix_discovery.py network_auto_config.py
 
-echo "4. Installing systemd services..."
-sudo cp veeder-*.service /etc/systemd/system/
-sudo systemctl daemon-reload
+echo "4. Installing system Python packages..."
+sudo apt install -y python3-flask python3-requests
+pip3 install schedule --break-system-packages >/dev/null 2>&1 || echo "Schedule package install attempted"
 
-echo "5. Enabling services..."
-sudo systemctl enable veeder-web.service veeder-collector.service
-
-echo "6. Installing Tailscale for remote access..."
+echo "5. Installing Tailscale for remote access..."
 ./install_tailscale.sh
 
-echo "7. Starting services..."
-sudo systemctl start veeder-web.service
-sudo systemctl start veeder-collector.service
+echo "6. Setting up permissions..."
+chmod +x *.py
 
-echo "8. Checking service status..."
-sudo systemctl status veeder-web.service --no-pager
-echo
-sudo systemctl status veeder-collector.service --no-pager
+echo "7. Setting up auto-start on boot..."
+./setup_autostart.sh
+
+echo "8. Starting services manually for immediate use..."
+python3 simple_web_server.py > web.log 2>&1 &
+sleep 2
+python3 collector.py > collector.log 2>&1 &
+sleep 3
+
+echo "9. Checking running services..."
+ps aux | grep python3 | grep -E "(simple_web|collector)" | grep -v grep
 
 echo
 echo "=== Deployment Complete! ==="
