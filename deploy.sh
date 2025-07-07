@@ -38,11 +38,14 @@ sudo systemctl daemon-reload
 echo "5. Enabling services..."
 sudo systemctl enable veeder-web.service veeder-collector.service
 
-echo "6. Starting services..."
+echo "6. Installing Tailscale for remote access..."
+./install_tailscale.sh
+
+echo "7. Starting services..."
 sudo systemctl start veeder-web.service
 sudo systemctl start veeder-collector.service
 
-echo "7. Checking service status..."
+echo "8. Checking service status..."
 sudo systemctl status veeder-web.service --no-pager
 echo
 sudo systemctl status veeder-collector.service --no-pager

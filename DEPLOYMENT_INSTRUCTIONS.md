@@ -72,10 +72,12 @@
    sudo systemctl start veeder-web.service veeder-collector.service
    ```
 
-6. **Install Tailscale (for remote access):**
+6. **Connect to Tailscale network:**
    ```bash
-   curl -fsSL https://tailscale.com/install.sh | sh
+   # Tailscale is automatically installed by deploy.sh
+   # Connect this Pi to your network:
    sudo tailscale up
+   # Note the 100.x.x.x IP for future SSH access
    ```
 
 ### Configuration:
