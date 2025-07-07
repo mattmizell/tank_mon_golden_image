@@ -1,0 +1,15 @@
+[Unit]
+Description=Veeder Reader Collector (venv)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=mattmizell
+WorkingDirectory=/home/mattmizell/Veeder_Reader
+ExecStart=/home/mattmizell/Veeder_Reader/venv/bin/python /home/mattmizell/Veeder_Reader/collector.py
+Restart=on-failure
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

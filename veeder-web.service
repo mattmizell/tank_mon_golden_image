@@ -1,0 +1,14 @@
+[Unit]
+Description=Veeder Reader Web Interface
+After=network.target
+
+[Service]
+Type=simple
+User=mattmizell
+WorkingDirectory=/home/mattmizell/Veeder_Reader
+ExecStart=/usr/bin/python3 /home/mattmizell/Veeder_Reader/simple_web_server.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
