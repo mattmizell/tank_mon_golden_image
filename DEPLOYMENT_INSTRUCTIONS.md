@@ -15,13 +15,30 @@
 
 ### Deployment Steps:
 
-1. **Prepare the Raspberry Pi:**
+1. **Prepare the SD Card (FIRST - before booting Pi):**
+   ```bash
+   # Flash Pi OS Lite to SD card
+   # Mount the boot partition on your computer
+   # Copy files from boot_config_files/ to boot partition root:
+   #   - ssh (empty file - enables SSH)
+   #   - wpa_supplicant.conf (WiFi config if needed)
+   # Eject SD card and insert into Pi
+   ```
+
+2. **Boot and Connect to Pi:**
+   ```bash
+   # Boot Pi and wait 2-3 minutes
+   # Find Pi IP in router admin panel (MAC starts with 2C:CF:67)
+   # SSH to Pi: ssh pi@[PI-IP] (password: raspberry)
+   ```
+
+3. **Update Pi System:**
    ```bash
    # Update system
    sudo apt update && sudo apt upgrade -y
    
-   # Install Python and dependencies
-   sudo apt install python3 python3-pip python3-venv -y
+   # Install Python and dependencies  
+   sudo apt install python3 python3-pip python3-venv git -y
    ```
 
 2. **Create user and directory:**
