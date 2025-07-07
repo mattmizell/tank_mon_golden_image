@@ -1,0 +1,13 @@
+[Unit]
+Description=First Boot Setup (Tailscale Installation)
+After=network.target
+ConditionPathExists=!/var/lib/firstboot.done
+
+[Service]
+Type=oneshot
+ExecStart=/boot/firmware/firstboot.sh
+RemainAfterExit=yes
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target
